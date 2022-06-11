@@ -1,0 +1,120 @@
+# Launch terminal
+super + x 
+	kitty
+
+# Launch Rofi start menu
+super + r
+	sh $HOME/.config/rofi/bin/launcher
+
+# Rofi Network Menu
+super + n
+	networkmanager_dmenu
+
+# Rofi Menus/Applets
+super + {p,s,i}
+	sh $HOME/.config/rofi/bin/{powermenu,screenshot,network}
+super + b
+	rofi-bluetooth
+
+# Launch Web Browser
+super + {_,shift + }w
+	google-chrome-stable {_,--incognito}
+
+# Launch common apps
+super + {e}
+	{nautilus --new-window}
+
+# Lockscreen
+super + l
+	sh $HOME/.local/bin/lock
+
+# Take a screenshot
+Print
+	sh $HOME/.local/bin/takeshot --now
+
+# Take a screenshot of active window only
+alt + Print
+	sh $HOME/.local/bin/takeshot --win
+
+# Take a screenshot with drawing manual selection
+ctrl + Print
+	sh $HOME/.local/bin/takeshot --area
+
+# Brighness control
+XF86MonBrightness{Up,Down}
+	sh $HOME/.local/bin/brightness{ up, down}
+	
+# Volume control
+XF86Audio{RaiseVolume,LowerVolume}
+	sh $HOME/.local/bin/volume{ up, down}
+
+XF86AudioMute
+	sh $HOME/.local/bin/volume mute
+	
+# Music control
+XF86Audio{Next,Prev,Play,Stop}
+	mpc {next,prev,toggle,stop}
+
+# Reload bspwm config
+super + BackSpace
+	sh $HOME/.config/bspwm/bspwmrc
+
+# Close or kill app
+super + {_,shift + }q
+	bspc node {-c,-k}
+
+# Close app (common way)
+alt + F4
+	bspc node -c
+
+# Fullscreen / Monocle
+super + f
+	bspc desktop -l next
+
+# Split horizontal, split vertical, or cancel
+super + {h,v,r}
+	bspc node -p {east,south,cancel}
+
+# Toggle beetwen floating & tiled
+super + space
+	bspc node -t "~"{floating,tiled}
+
+# Pseudo Tiled & tiled mode
+super + {p,t}
+	bspc node -t {pseudo_tiled,tiled}
+
+# Send the window to another edge of the screen
+super + {_,shift + }{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+
+# Change focus to next window, including floating window
+alt + {_,shift + }Tab
+	bspc node -f {next.local,prev.local}
+
+# Switch workspace
+ctrl + alt + {Left,Right}
+	bspc desktop -f {prev.local,next.local}
+
+# Switch to last opened workspace
+super + {Tab,grave}
+	bspc {node,desktop} -f last
+
+# Switch to another workspace
+super + {1-8}
+	bspc desktop -f '^{1-8}'
+
+# Send focused window to another workspace
+super + shift + {1-8}
+	bspc node -d '^{1-8}' -f
+
+# Expanding windows
+super + control + {Left,Right,Up,Down}
+	bspc node -z {left -20 0,right 20 0,top 0 -20,bottom 0 20}
+
+# Shrinking windows
+super + alt + {Left,Right,Up,Down}
+	bspc node -z {left 20 0,right -20 0,top 0 20,bottom 0 -20}
+
+# Move floating windows
+alt + shift + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}

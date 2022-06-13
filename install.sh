@@ -43,11 +43,11 @@ sudo echo ""
 case $arch in
     Y*|y*)
     # Package (Arch Linux)
-    printf "[*] Updating System\n" && sleep 1
+    printf "[*] Updating System\n" && sleep 0.25
     echo " "
     sudo pacman --noconfirm -Syu
 
-    printf "[*] Installing Dependencies\n" && sleep 1
+    printf "[*] Installing Dependencies\n" && sleep 0.25
     echo " "
     sudo pacman -S --noconfirm --needed git xorg curl base-devel
 
@@ -58,11 +58,11 @@ case $arch in
     sudo chown $USER:$USER yay
     cd yay
     makepkg -si
-    yay -S --noconfirm bspwm-git sxhkd-git polybar-git rofi zsh kitty picom-ibhagwan-git dunst gtk3 gtk-engine-murrine gnome-themes-extra alsa alsa-utils feh volumectl brightnessctl bluez bluez-utils i3lock-color ksuperkey sddm rofi-bluetooth-git yad networkmanager networkmanager-dmenu-git cava nerd-fonts-jetbrains-mono ttf-jetbrains-mono ttf-iosevka ttf-iosevka-nerd xclip pulseaudio pulseaudio-alsa pulseaudio-bluetooth xbrightness xcolor mpd ncmpcpp mpc zathura polkit-gnome xfce4-power-manager viewnior maim xdg-user-dirs xdotool pavucontrol nautilus lxappearance-gtk3 mpv
+    yay -S --noconfirm bspwm-git sxhkd-git polybar-git rofi zsh fish kitty thefuck picom-ibhagwan-git dunst gtk3 gtk-engine-murrine gnome-keyring gnome-themes-extra alsa alsa-utils feh volumectl brightnessctl bluez bluez-utils i3lock-color ksuperkey sddm rofi-bluetooth-git yad networkmanager networkmanager-dmenu-git cava nerd-fonts-jetbrains-mono ttf-jetbrains-mono ttf-iosevka ttf-iosevka-nerd xclip pulseaudio pulseaudio-alsa pulseaudio-bluetooth xbrightness xcolor mpd ncmpcpp mpc zathura polkit-gnome xfce4-power-manager viewnior maim xdg-user-dirs xdotool pavucontrol nautilus lxappearance-gtk3 mpv
 esac
 
 # Copying the old configs to backup folder
-printf "[*] Making backups\n" && sleep 1
+printf "[*] Making backups\n" && sleep 0.25
 cp -rf $config/bspwm/ $config/backups
 cp -rf $config/sxhkd/ $config/backups
 cp -rf $config/polybar/ $config/backups
@@ -82,7 +82,7 @@ cp -rf $HOME/.mpd/ $config/backups
 cp -rf $bin $config/backups
 
 # Removing old configs
-printf "[*] Deleting old configs\n" && sleep 1
+printf "[*] Deleting old configs\n" && sleep 0.25
 rm -rf $config/bspwm/
 rm -rf $config/sxhkd/
 rm -rf $config/polybar/
@@ -102,45 +102,50 @@ rm -rf $HOME/.startpage/
 rm -rf $bin/*
 
 # Setup
-printf "[*] Copying dotfiles\n" && sleep 1
+printf "[*] Copying dotfiles\n" && sleep 0.25
 cp -rf $dotfiles/config/* $config/
 
-printf "[*] Copying configs\n" && sleep 1
+printf "[*] Copying configs\n" && sleep 0.25
 cp -rf $dotfiles/home/.[^.]* $HOME/
 xrdb ~/.Xresources
-printf "[*] Configs copied\n" && sleep 1
+printf "[*] Configs copied\n" && sleep 0.25
 
-printf "[*] Copying scripts\n" && sleep 1
+printf "[*] Copying scripts\n" && sleep 0.25
 cp -rf $dotfiles/local/bin/* $bin/
 sudo cp $dotfiles/local/bin/rofi-bluetooth /usr/bin/
-printf "[*] Scripts copied\n" && sleep 1
+printf "[*] Scripts copied\n" && sleep 0.25
 
-printf "[*] Making them excutables\n" && sleep 1
+printf "[*] Making them excutables\n" && sleep 0.25
 chmod +x $bin/*
 chmod +x $config/bspwm/bspwmrc
 chmod +x $config/rofi/bin/*
 chmod +x $config/polybar/launch.sh
 
-printf "[*] Copying wallpapers\n" && sleep 1
-cp -rf $dotfiles/home/Pictures/Wallpapers/* $HOME/Pictures/Wallpapers
-printf "[*] Wallpapers copied\n" && sleep 1
+printf "[*] Set default shell\n" && sleep 0.25
+# echo /usr/bin/fish | sudo tee -a /etc/shells
+# chsh -s /usr/bin/fish
+printf "[*] Default shell set\n" && sleep 0.25
 
-printf "[*] Copying fonts\n" && sleep 1
+printf "[*] Copying wallpapers\n" && sleep 0.25
+cp -rf $dotfiles/home/Pictures/Wallpapers/* $HOME/Pictures/Wallpapers
+printf "[*] Wallpapers copied\n" && sleep 0.25
+
+printf "[*] Copying fonts\n" && sleep 0.25
 cp -rf $dotfiles/fonts/* $HOME/.fonts
 fc-cache -fv
-printf "[*] Fonts copied\n" && sleep 1
+printf "[*] Fonts copied\n" && sleep 0.25
 
 
-printf "[*] Set themes\n" && sleep 1
+printf "[*] Set themes\n" && sleep 0.25
 gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
 gsettings set org.gnome.desktop.interface icon-theme "Dracula"
 gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
-printf "[*] Themes set\n" && sleep 1
+printf "[*] Themes set\n" && sleep 0.25
 
-printf "[*] Dotfiles installed\n" && sleep 1
+printf "[*] Dotfiles installed\n" && sleep 0.25
 
 # Finishing    
-printf "[-] Done\n" && sleep 1
+printf "[-] Done\n" && sleep 0.25
 printf "[*] Please Reboot your system!!\n"
 printf "[-] Exiting!\n"
 esac

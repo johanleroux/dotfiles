@@ -1,0 +1,4 @@
+#!/bin/bash
+xrandr --dpi 96 --fb 6720x3960 \
+    --output eDP-1 --mode 2880x1800 --pos 0x2160 \
+    --output DisplayPort-2 --mode 1920x1080 --scale 2x2 --pos 0x0

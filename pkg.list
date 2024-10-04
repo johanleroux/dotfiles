@@ -8,6 +8,8 @@ bat
 betterdiscord-installer
 brightnessctl
 btop
+cloc
+cloudflared
 croc
 discord
 dmenu
@@ -21,6 +23,7 @@ firefox
 fzf
 gimp
 git
+git-quick-stats
 gitui
 gnome-keyring
 google-chrome
@@ -40,12 +43,14 @@ pavucontrol
 picom
 polybar
 postgresql
+python
 qrencode
 redis
 rofi
 rofi-bluetooth-git
 slack-desktop
 stow
+syncthing
 tailscale
 terraform
 tmux

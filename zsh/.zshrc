@@ -85,3 +85,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # Created by `pipx` on 2024-07-06 09:10:46
 export PATH="$PATH:/home/johan/.local/bin"
+export PATH="$PATH:$HOME/.tdk/bin"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform

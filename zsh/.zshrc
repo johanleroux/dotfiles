@@ -62,8 +62,12 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 alias ls='ls --color'
 alias s="kitten ssh"
 alias vim='nvim'
+alias .='cd .'
+alias ..='cd ..'
 alias c='clear'
 alias nah='git reset HEAD --hard; git clean -df;'
+alias t='reset; npm run test $@'
+alias tq='reset; npm run test:quick $@'
 
 # System variables
 export EDITOR=nvim

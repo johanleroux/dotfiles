@@ -17,11 +17,12 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
 # Add in snippets
-zinit snippet OMZP::git
-zinit snippet OMZP::sudo
 zinit snippet OMZP::archlinux
 zinit snippet OMZP::aws
 zinit snippet OMZP::command-not-found
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::tmux
 
 # Load completions
 autoload -Uz compinit && compinit
@@ -61,6 +62,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # Aliases
 alias ls='ls --color'
 alias s="kitten ssh"
+alias gl='git log --pretty=format:"%C(yellow)%h%Creset - %C(green)%an%Creset, %ar : %s"'
 alias vim='nvim'
 alias .='cd .'
 alias ..='cd ..'
@@ -73,6 +75,12 @@ alias tq='reset; npm run test:quick $@'
 export EDITOR=nvim
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_ENABLE_HIGHDPI_SCALING=1
+export GTK_THEME=Awaita:dark
+
+# start tmux session when connecting though ssh 
+ssh() {
+  /usr/bin/ssh -t $@ "tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux";
+}
 
 # Shell integrations
 eval "$(fzf --zsh)"

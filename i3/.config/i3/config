@@ -23,6 +23,9 @@ exec_always --no-startup-id feh --bg-scale /home/$USER/Pictures/wallpaper.jpeg
 # set system default to dark mode
 exec --no-startup-id gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
+# pause dunst notifications
+exec_always dunstctl set-paused true
+
 # kill any hanging polybar processes
 exec_always --no-startup-id /home/$USER/.config/polybar/launch_polybar.sh
 

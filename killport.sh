@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Check if a port number was provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <port>"
+  exit 1
+fi
+
+PORT="$1"
+
+# Find the PID of the process using the port
+PID=$(lsof -ti tcp:"$PORT")
+echo "Killing process $PID"
+
+if [ -z "$PID" ]; then
+  echo "No process found using port $PORT"
+  exit 0
+fi
+
+# Kill the process
+kill -9 "$PID" && echo "Killed process $PID using port $PORT"
+

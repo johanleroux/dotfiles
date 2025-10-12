@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "enabling syncthing on user level"
 systemctl --user enable syncthing

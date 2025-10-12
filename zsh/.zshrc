@@ -70,6 +70,7 @@ alias c='clear'
 alias nah='git reset HEAD --hard; git clean -df;'
 alias t='reset; npm run test $@'
 alias tq='reset; npm run test:quick $@'
+alias kp='killport $@' 
 
 # System variables
 export EDITOR=nvim
@@ -99,6 +100,9 @@ export NVM_DIR="$HOME/.nvm"
 # Created by `pipx` on 2024-07-06 09:10:46
 export PATH="$PATH:/home/johan/.local/bin"
 export PATH="$PATH:$HOME/.tdk/bin"
+export PATH="$PATH:$HOME/.atuin/bin"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
+
+eval "$(atuin init zsh --disable-up-arrow)"

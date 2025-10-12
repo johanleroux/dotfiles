@@ -20,7 +20,7 @@ output HDMI-1-1
 off
 output eDP-1-1
 off
-output eDP-1
+output eDP
 crtc 0
 mode 2880x1800
 pos 0x0

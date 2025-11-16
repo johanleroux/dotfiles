@@ -59,18 +59,32 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-# Aliases
-alias ls='ls --color'
+# Aliases - File System
+alias ls='eza -lh --group-directories-first --icons=auto'
+alias lt='eza --tree --level=2 --long --icons --git'
+alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+alias cd="zd"
+zd() {
+  if [ $# -eq 0 ]; then
+    builtin cd ~ && return
+  elif [ -d "$1" ]; then
+    builtin cd "$1"
+  else
+    z "$@" && printf "\U000F17A9 " && pwd || echo "Error: Directory not found"
+  fi
+}
+alias .='cd .'
+alias ..='cd ..'
+
 alias s="kitten ssh"
 alias gl='git log --pretty=format:"%C(yellow)%h%Creset - %C(green)%an%Creset, %ar : %s"'
 alias vim='nvim'
-alias .='cd .'
-alias ..='cd ..'
 alias c='clear'
 alias nah='git reset HEAD --hard; git clean -df;'
 alias t='reset; npm run test $@'
 alias tq='reset; npm run test:quick $@'
-alias kp='killport $@' 
+alias kp='killport $@'
+alias cat='bat $@'
 
 # System variables
 export EDITOR=nvim
@@ -85,7 +99,7 @@ ssh() {
 
 # Shell integrations
 eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
+eval "$(zoxide init zsh)"
 
 # fzf styling
 export FZF_DEFAULT_OPTS=" \
@@ -93,12 +107,7 @@ export FZF_DEFAULT_OPTS=" \
 --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
 --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Created by `pipx` on 2024-07-06 09:10:46
-export PATH="$PATH:/home/johan/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.tdk/bin"
 export PATH="$PATH:$HOME/.atuin/bin"
 
@@ -106,3 +115,7 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
 
 eval "$(atuin init zsh --disable-up-arrow)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

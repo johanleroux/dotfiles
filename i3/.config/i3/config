@@ -20,7 +20,7 @@ exec --no-startup-id autorandr --change
 exec --no-startup-id syncthing --no-browser
 exec --no-startup-id discord --start-minimized
 exec --no-startup-id slack --startup
-exec_always --no-startup-id feh --bg-scale /home/$USER/Pictures/wallpaper.jpeg
+exec_always --no-startup-id feh --bg-scale --randomize ~/.wallpaper/*
 
 # set system default to dark mode
 exec --no-startup-id gsettings set org.gnome.desktop.interface color-scheme prefer-dark
@@ -39,8 +39,8 @@ exec_always --no-startup-id /home/$USER/.config/display/set-config.sh
 exec_always autotiling -w 1 2 3 4 5 6 7 8 9
 
 #bindsym Print exec maim "/home/$USER/Pictures/$(date).jpg"
-bindsym $mod+Shift+s exec maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date).jpg" | xclip -selection clipboard -t image/png
-bindsym $mod+s exec maim --select "/home/$USER/Pictures/$(date).png"
+bindsym $mod+Shift+s exec screenshot_window
+bindsym $mod+s exec screenshot_selection
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -85,8 +85,8 @@ bindsym Ctrl+$mod+l exec --no-startup-id sh $HOME/.config/rofi/bin/lock
 # start rofi (a program launcher)
 bindsym $mod+space exec --no-startup-id sh $HOME/.config/rofi/bin/launcher
 bindsym $mod+p exec --no-startup-id sh $HOME/.config/rofi/bin/powermenu
-bindsym $mod+b exec --no-startup-id rofi-bluetooth
-bindsym $mod+n exec --no-startup-id ronema
+bindsym $mod+b exec --no-startup-id kitty bluetui
+bindsym $mod+n exec --no-startup-id kitty impala
 bindsym $mod+e exec --no-startup-id nautilus
 
 # change focus

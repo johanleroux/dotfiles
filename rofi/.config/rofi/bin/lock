@@ -1,2 +1,19 @@
 #!/usr/bin/env bash
-i3lock -e -i /home/$USER/Pictures/wallpaper.png
+
+# Get current wallpaper
+file=$(sed -n "s/.*'\(.*\)'.*/\1/p" ~/.fehbg)
+
+# Define new lock path
+newfile="/tmp/i3lock.png"
+
+
+# Check if the lock screen already exists, otherwise generate it
+if [ -ne "$newfile" ]; then
+    # Get the width of the resolution of the primary display
+    width=$(xrandr | awk '/ primary/{print $4}' | cut -d+ -f1 | cut -dx -f1)
+
+    convert "$file" -resize "$width"x -blur 0x5 "$newfile"
+fi
+
+# Lock the screen
+i3lock -e -i "$newfile"

@@ -3,7 +3,7 @@
 if ! command -v yay &> /dev/null
 then
     echo "yay could not be found"
-    echo "installing yay"
+    echo "Installing yay"
 
     #!/usr/bin/env bash
     sudo pacman -S --needed git base-devel
@@ -14,7 +14,7 @@ then
     rm yay -rf
 fi
 
-echo "installing packages"
+echo "Installing packages"
 yay -S --needed --noconfirm - < ./pkg.list
-echo "packages installed"
+echo "Packages installed"
 

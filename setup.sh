@@ -86,18 +86,11 @@ CURRENT_SHELL=$(getent passwd "$(whoami)" | cut -d: -f7)
 ZSH_PATH=$(command -v zsh)
 
 if [[ "$CURRENT_SHELL" != "$ZSH_PATH" ]]; then
-  if sudo chsh -s "$ZSH_PATH"; then
+  if chsh -s "$ZSH_PATH"; then
     echo "Default shell changed to zsh. You need to log out for the change to take effect"
   else
     echo "Failed to change the default shell to zsh"
   fi
-fi
-
-# Source zsh configuration
-if [ -f "$HOME/.zshrc" ]; then
-  zsh
-  echo "Sourcing .zshrc"
-  zsh -c "source $HOME/.zshrc"
 fi
 
 echo "✅ Setup completed!"

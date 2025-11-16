@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+z#!/usr/bin/env bash
 
 # Check if the user can run sudo without a passowrd
 if sudo -n true 2>/dev/null; then
@@ -69,6 +69,13 @@ bat cache --build
 
 # Stow dotfiles and scripts
 bash ./stow.sh
+
+# Source zsh configuration
+if [ -f "$HOME/.zshrc" ]; then
+  zsh
+  echo "Sourcing .zshrc"
+  source "$HOME/.zshrc"
+fi
 
 # Set the default shell
 CURRENT_SHELL=$(getent passwd "$(whoami)" | cut -d: -f7)

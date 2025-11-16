@@ -1,3 +1,4 @@
+
 1password
 arandr
 atuin
@@ -46,6 +47,10 @@ man-db
 nautilus
 nautilus-open-any-terminal
 neovim
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+noto-fonts-extra
 oh-my-posh
 pavucontrol
 picom
@@ -65,10 +70,12 @@ syncthing
 tailscale
 terraform
 tmux
+ttf-input-nerd
 ttf-iosevka
 ttf-iosevka-nerd
 ttf-jetbrains-mono-nerd
 ttf-meslo-nerd
+ttf-noto-nerd
 visual-studio-code-bin
 wget
 xclip

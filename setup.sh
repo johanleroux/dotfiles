@@ -1,4 +1,4 @@
-z#!/usr/bin/env bash
+#!/usr/bin/env bash
 
 # Check if the user can run sudo without a passowrd
 if sudo -n true 2>/dev/null; then
@@ -20,8 +20,17 @@ if ! systemctl is-enabled --quiet lightdm; then
   echo "Enabling LightDM service"
   sudo systemctl enable lightdm
 fi
-sudo groupadd -r autologin
-sudo gpasswd -a $USER autologin
+
+# Check if autologin group does not exist
+if ! getent group autologin > /dev/null 2>&1; then
+  echo "Creating 'autologin' group."
+  sudo groupadd -r autologin
+fi
+# Add user to autologin group if not already a member
+if ! id -nG "$(whoami)" | grep -qw "autologin"; then
+  echo "Adding $(whoami) to the autologin group"
+  sudo gpasswd -a $USER autologin
+fi
 
 # Bluetooth
 if ! systemctl is-enabled --quiet bluetooth; then
@@ -70,12 +79,7 @@ bat cache --build
 # Stow dotfiles and scripts
 bash ./stow.sh
 
-# Source zsh configuration
-if [ -f "$HOME/.zshrc" ]; then
-  zsh
-  echo "Sourcing .zshrc"
-  source "$HOME/.zshrc"
-fi
+
 
 # Set the default shell
 CURRENT_SHELL=$(getent passwd "$(whoami)" | cut -d: -f7)
@@ -87,4 +91,20 @@ if [[ "$CURRENT_SHELL" != "$ZSH_PATH" ]]; then
   else
     echo "Failed to change the default shell to zsh"
   fi
+fi
+
+# Source zsh configuration
+if [ -f "$HOME/.zshrc" ]; then
+  zsh
+  echo "Sourcing .zshrc"
+  zsh -c "source $HOME/.zshrc"
+fi
+
+echo "✅ Setup completed!"
+
+echo "Please restart your computer to ensure all changes take effect."
+echo "Restart now? (y/n)"
+read -r answer
+if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
+  sudo reboot now
 fi

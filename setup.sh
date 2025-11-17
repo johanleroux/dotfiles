@@ -31,13 +31,21 @@ if ! id -nG "$(whoami)" | grep -qw "autologin"; then
   echo "Adding $(whoami) to the autologin group"
   sudo gpasswd -a $USER autologin
 fi
+# Configure LightDM for autologin
+LIGHTDM_CONF="/etc/lightdm/lightdm.conf"
+if ! grep -q "autologin-user=$(whoami)" "$LIGHTDM_CONF"; then
+  echo "Configuring LightDM for autologin"
+
+  # Replace #autologin-user= with autologin-user=$(whoami)
+  sudo sed -i "s/#autologin-user=.*/autologin-user=$(whoami)/" "$LIGHTDM_CONF"
+fi
 
 # Bluetooth
 if ! systemctl is-enabled --quiet bluetooth; then
   echo "Enabling bluetooth service"
   sudo systemctl enable bluetooth
 fi
-if ! systemctl is-enabled --quiet bluetooth; then
+if ! systemctl is-active --quiet bluetooth; then
   echo "Enabling bluetooth service"
   sudo systemctl start bluetooth
 fi
@@ -45,16 +53,11 @@ fi
 # Docker
 if ! systemctl is-enabled --quiet docker; then
   echo "Enabling docker service"
-  sudo systemctl enable docker
-fi
-if ! systemctl is-active --quiet docker; then
-  echo "Starting docker service"
-  sudo systemctl start docker
+  sudo systemctl enable docker.socket
 fi
 if ! id -nG "$(whoami)" | grep -qw "docker"; then
   echo "Adding $(whoami) to the Docker group"
   sudo usermod -aG docker $USER
-  newgrp docker
 fi
 
 # Syncthing

@@ -41,6 +41,7 @@ Configure the following options (leave others as default):
 | **Authentication → User account** | Add user → Superuser: Yes → Confirm and exit |
 | **Applications → Audio** | pipewire |
 | **Network configuration** | Copy ISO network config |
+| **Additional packages** | git |
 | **Timezone** | Select your timezone |
 
 ### ⚠️ Disk Encryption Warning

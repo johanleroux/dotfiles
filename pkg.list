@@ -42,6 +42,7 @@ kitty
 libreoffice-still
 lightdm
 lightdm-gtk-greeter
+limine-snapper-sync
 localsend
 maim
 man-db
@@ -66,6 +67,7 @@ redis
 rofi
 rofi-bluetooth-git
 slack-desktop
+snapper
 stow
 syncthing
 tailscale

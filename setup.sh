@@ -96,7 +96,11 @@ sudo sed -i 's/^TIMELINE_CREATE="yes"/TIMELINE_CREATE="no"/' /etc/snapper/config
 sudo sed -i 's/^NUMBER_LIMIT="50"/NUMBER_LIMIT="5"/' /etc/snapper/configs/{root,home}
 sudo sed -i 's/^NUMBER_LIMIT_IMPORTANT="10"/NUMBER_LIMIT_IMPORTANT="5"/' /etc/snapper/configs/{root,home}
 
-sudo systemctl enable limine-snapper-sync.service
+# Limine Snapper Sync
+if ! systemctl is-enabled --quiet limine-snapper-sync.service; then
+  echo "Enabling limine-snapper-sync service"
+  sudo systemctl enable limine-snapper-sync.service
+fi
 
 # Set the default shell
 CURRENT_SHELL=$(getent passwd "$(whoami)" | cut -d: -f7)

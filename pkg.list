@@ -42,6 +42,8 @@ kitty
 libreoffice-still
 lightdm
 lightdm-gtk-greeter
+limine
+limine-mkinitcpio-hook
 limine-snapper-sync
 localsend
 maim

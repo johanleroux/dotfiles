@@ -7,9 +7,13 @@ CONF="/etc/mkinitcpio.conf"
 echo "Updating HOOKS in $CONF"
 sudo sed -i -E "s|^HOOKS=.*$|HOOKS=(${NEW_HOOKS})|" "$CONF"
 
-echo "Selecting Plymouth theme"
-sudo cp -r ./assets/arch-mac-style /usr/share/plymouth/themes/
-sudo plymouth-set-default-theme -R arch-mac-style
+# Check if the theme is not already set
+current_theme=$(plymouth-set-default-theme --list | grep '^\*' | awk '{print $2}')
+if [[ "$current_theme" != "arch-mac-style" ]]; then
+    echo "Selecting Plymouth theme"
+    sudo cp -r ./assets/arch-mac-style /usr/share/plymouth/themes/
+    sudo plymouth-set-default-theme -R arch-mac-style
+fi
 
 [[ -f /boot/EFI/limine/limine.conf ]] || [[ -f /boot/EFI/BOOT/limine.conf ]] && EFI=true
 

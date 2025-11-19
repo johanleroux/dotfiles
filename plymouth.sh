@@ -4,7 +4,7 @@ set -euo pipefail
 # ================================
 #  CONFIGURE YOUR HOOKS HERE
 # ================================
-NEW_HOOKS="base udev autodetect modconf block filesystems keyboard fsck"
+NEW_HOOKS="base plymouth udev autodetect microcode modconf kms keyboard keymap consolefont block encrypt filesystems fsck"
 
 CONF="/etc/mkinitcpio.conf"
 BACKUP="/etc/mkinitcpio.conf.bak-$(date +%Y%m%d-%H%M%S)"

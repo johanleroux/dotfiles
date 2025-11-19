@@ -1,6 +1,26 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+[[ -f /boot/EFI/limine/limine.conf ]] || [[ -f /boot/EFI/BOOT/limine.conf ]] && EFI=true
+
+# Conf location is different between EFI and BIOS
+if [[ -n "$EFI" ]]; then
+    # Check USB location first, then regular EFI location
+    if [[ -f /boot/EFI/BOOT/limine.conf ]]; then
+        limine_config="/boot/EFI/BOOT/limine.conf"
+    else
+        limine_config="/boot/EFI/limine/limine.conf"
+    fi
+else
+    limine_config="/boot/limine/limine.conf"
+fi
+
+# Double-check and exit if we don't have a config file for some reason
+if [[ ! -f $limine_config ]]; then
+    echo "Error: Limine config not found at $limine_config" >&2
+    exit 1
+fi
+
 NEW_HOOKS="base udev plymouth autodetect microcode modconf kms keyboard keymap consolefont block encrypt filesystems fsck"
 CONF="/etc/mkinitcpio.conf"
 
@@ -36,9 +56,3 @@ EOF
 echo "Regenerating initramfs"
 sudo limine-update
 
-if efibootmgr &>/dev/null; then
-    # Remove the archinstall-created Limine entry
-    while IFS= read -r bootnum; do
-        sudo efibootmgr -b "$bootnum" -B >/dev/null 2>&1
-    done < <(efibootmgr | grep -E "^Boot[0-9]{4}\*? Arch Linux Limine" | sed 's/^Boot\([0-9]\{4\}\).*/\1/')
-fi

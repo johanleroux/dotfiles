@@ -15,30 +15,30 @@ if [[ "$current_theme" != "arch-mac-style" ]]; then
     sudo plymouth-set-default-theme -R arch-mac-style
 fi
 
-[[ -f /boot/EFI/limine/limine.conf ]] || [[ -f /boot/EFI/BOOT/limine.conf ]] && EFI=true
+  # We overwrite the whole thing knowing the limine-update will add the entries for us
+  sudo tee /boot/limine.conf <<EOF >/dev/null
+### Read more at config document: https://github.com/limine-bootloader/limine/blob/trunk/CONFIG.md
+#timeout: 3
+default_entry: 2
+interface_branding: Arch Limine Bootloader
+interface_branding_color: 2
+hash_mismatch_panic: no
 
-# Conf location is different between EFI and BIOS
-if [[ -n "$EFI" ]]; then
-    # Check USB location first, then regular EFI location
-    if [[ -f /boot/EFI/BOOT/limine.conf ]]; then
-        limine_config="/boot/EFI/BOOT/limine.conf"
-    else
-        limine_config="/boot/EFI/limine/limine.conf"
-    fi
-    else
-        limine_config="/boot/limine/limine.conf"
-fi
+term_palette: 24273a;ed8796;a6da95;eed49f;8aadf4;f5bde6;8bd5ca;cad3f5
+term_palette_bright: 5b6078;ed8796;a6da95;eed49f;8aadf4;f5bde6;8bd5ca;cad3f5
+term_background: 24273a
+term_foreground: cad3f5
+term_background_bright: 5b6078
+term_foreground_bright: cad3f5
 
-# Remove the original config file if it's not /boot/limine.conf
-if [[ "$limine_config" != "/boot/limine.conf" ]] && [[ -f "$limine_config" ]]; then
-    sudo rm "$limine_config"
-fi
-
-# Double-check and exit if we don't have a config file for some reason
-if [[ ! -f $limine_config ]]; then
-    echo "Error: Limine config not found at $limine_config" >&2
-    exit 1
-fi
+EOF
 
 echo "Regenerating initramfs"
 sudo limine-update
+
+if efibootmgr &>/dev/null; then
+    # Remove the archinstall-created Limine entry
+    while IFS= read -r bootnum; do
+        sudo efibootmgr -b "$bootnum" -B >/dev/null 2>&1
+    done < <(efibootmgr | grep -E "^Boot[0-9]{4}\*? Arch Linux Limine" | sed 's/^Boot\([0-9]\{4\}\).*/\1/')
+fi

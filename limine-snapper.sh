@@ -60,21 +60,16 @@ EOF
 ### Read more at config document: https://github.com/limine-bootloader/limine/blob/trunk/CONFIG.md
 #timeout: 3
 default_entry: 2
-interface_branding: Omarchy Bootloader
+interface_branding: Arch Bootloader
 interface_branding_color: 2
 hash_mismatch_panic: no
 
-term_background: 1a1b26
-backdrop: 1a1b26
-
-# Terminal colors (Tokyo Night palette)
-term_palette: 15161e;f7768e;9ece6a;e0af68;7aa2f7;bb9af7;7dcfff;a9b1d6
-term_palette_bright: 414868;f7768e;9ece6a;e0af68;7aa2f7;bb9af7;7dcfff;c0caf5
-
-# Text colors
-term_foreground: c0caf5
-term_foreground_bright: c0caf5
-term_background_bright: 24283b
+term_palette: 24273a;ed8796;a6da95;eed49f;8aadf4;f5bde6;8bd5ca;cad3f5
+term_palette_bright: 5b6078;ed8796;a6da95;eed49f;8aadf4;f5bde6;8bd5ca;cad3f5
+term_background: 24273a
+term_foreground: cad3f5
+term_background_bright: 5b6078
+term_foreground_bright: cad3f5
 
 EOF
 

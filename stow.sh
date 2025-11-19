@@ -32,7 +32,7 @@ for dir in config/*; do
     if [ -d "$dir" ]; then
         dir=$(basename "$dir")
         dir=${dir%/}
-        stow -t "$HOME" -d config "$dir"
+        stow -t "$HOME" -d "$DOTFILES_DIR/config" "$dir"
     fi
 done
 

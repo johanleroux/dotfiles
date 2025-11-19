@@ -16,23 +16,23 @@ if [ ! -d "$DOTFILES_DIR" ]; then
     exit 1
 fi
 
-# Navigate to dotfiles directory
-cd "$DOTFILES_DIR" || exit 1
+# Check if the current directory is the dotfiles directory
+if [ "$(pwd)" != "$DOTFILES_DIR" ]; then
+    echo "Please run this script from the dotfiles directory: $DOTFILES_DIR"
+    exit 1
+fi
 
-# Loop through all subdirectories
-for dir in */; do
+# Stow the bin directory to /usr/local/bin
+echo "Stowing bin to /usr/local/bin..."
+sudo stow -t /usr/local/bin bin
+
+# Stow the config directories to $HOME
+for dir in */config/; do
     dir=${dir%/}  # remove trailing slash
+    target_dir="$HOME"
 
-    if [ "$dir" == "scripts" ]; then
-        echo "Stowing $dir to /usr/local/bin..."
-        sudo stow -t /usr/local/bin "$dir"
-    elif [ "$dir" == "assets" ]; then
-        echo "Skipping $dir..."
-        continue
-    else
-        echo "Stowing $dir to \$HOME..."
-        stow "$dir"
-    fi
+    echo "Stowing $dir to $target_dir..."
+    stow -t "$target_dir" "$dir"
 done
 
-echo "✅ All stow operations completed!"
+echo "All stow operations completed!"

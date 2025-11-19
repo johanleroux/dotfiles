@@ -26,13 +26,12 @@ fi
 echo "Stowing bin to /usr/local/bin..."
 sudo stow -t /usr/local/bin bin
 
-# Stow the config directories to $HOME
-for dir in */config/; do
-    dir=${dir%/}  # remove trailing slash
-    target_dir="$HOME"
-
-    echo "Stowing $dir to $target_dir..."
-    stow -t "$target_dir" "$dir"
+# Stow the directories inside config to $HOME
+echo "Stowing config to $HOME..."
+for dir in config/*; do
+    if [ -d "$dir" ]; then
+        stow -t "$HOME" "$dir"
+    fi
 done
 
 echo "All stow operations completed!"

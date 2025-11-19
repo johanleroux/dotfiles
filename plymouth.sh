@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+NEW_HOOKS="base udev plymouth autodetect microcode modconf kms keyboard keymap consolefont block encrypt filesystems fsck"
+CONF="/etc/mkinitcpio.conf"
+
+echo "Updating HOOKS in $CONF"
+sudo sed -i -E "s|^HOOKS=.*$|HOOKS=(${NEW_HOOKS})|" "$CONF"
+
 [[ -f /boot/EFI/limine/limine.conf ]] || [[ -f /boot/EFI/BOOT/limine.conf ]] && EFI=true
 
 # Conf location is different between EFI and BIOS
@@ -76,13 +82,6 @@ fi
 
 echo "Regenerating initramfs"
 sudo limine-update
-
-
-NEW_HOOKS="base udev plymouth autodetect microcode modconf kms keyboard keymap consolefont block encrypt filesystems fsck"
-CONF="/etc/mkinitcpio.conf"
-
-echo "Updating HOOKS in $CONF"
-sudo sed -i -E "s|^HOOKS=.*$|HOOKS=(${NEW_HOOKS})|" "$CONF"
 
 # Check if the theme is not already set
 current_theme=$(plymouth-set-default-theme)

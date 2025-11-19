@@ -7,10 +7,10 @@ CONF="/etc/mkinitcpio.conf"
 echo "Updating HOOKS in $CONF"
 sudo sed -i -E "s|^HOOKS=.*$|HOOKS=(${NEW_HOOKS})|" "$CONF"
 
+EFI=""
 [[ -f /boot/EFI/limine/limine.conf ]] || [[ -f /boot/EFI/BOOT/limine.conf ]] && EFI=true
 
 # Conf location is different between EFI and BIOS
-EFI=""
 if [[ -n "$EFI" ]]; then
     # Check USB location first, then regular EFI location
     if [[ -f /boot/EFI/BOOT/limine.conf ]]; then

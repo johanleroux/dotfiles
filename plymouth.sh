@@ -1,34 +1,35 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ================================
-#  CONFIGURE YOUR HOOKS HERE
-# ================================
-NEW_HOOKS="base plymouth udev autodetect microcode modconf kms keyboard keymap consolefont block encrypt filesystems fsck"
-
+NEW_HOOKS="base udev plymouth autodetect microcode modconf kms keyboard keymap consolefont block encrypt filesystems fsck"
 CONF="/etc/mkinitcpio.conf"
-BACKUP="/etc/mkinitcpio.conf.bak-$(date +%Y%m%d-%H%M%S)"
 
-# Make sure script runs as root
-if [[ $EUID -ne 0 ]]; then
-    echo "This script must be run as root!"
+echo "Updating HOOKS in $CONF"
+sudo sed -i -E "s|^HOOKS=.*$|HOOKS=(${NEW_HOOKS})|" "$CONF"
+
+echo "Selecting Plymouth theme"
+sudo cp -r ./assets/arch-mac-style /usr/share/plymouth/themes/
+sudo plymouth-set-default-theme -R arch-mac-style
+
+[[ -f /boot/EFI/limine/limine.conf ]] || [[ -f /boot/EFI/BOOT/limine.conf ]] && EFI=true
+
+# Conf location is different between EFI and BIOS
+if [[ -n "$EFI" ]]; then
+    # Check USB location first, then regular EFI location
+    if [[ -f /boot/EFI/BOOT/limine.conf ]]; then
+        limine_config="/boot/EFI/BOOT/limine.conf"
+    else
+        limine_config="/boot/EFI/limine/limine.conf"
+    fi
+    else
+        limine_config="/boot/limine/limine.conf"
+fi
+
+# Double-check and exit if we don't have a config file for some reason
+if [[ ! -f $limine_config ]]; then
+    echo "Error: Limine config not found at $limine_config" >&2
     exit 1
 fi
 
-echo "Creating backup: $BACKUP"
-cp "$CONF" "$BACKUP"
-
-echo "Updating HOOKS in $CONF"
-
-# Replace the HOOKS=() line, regardless of spacing or quoting format
-sed -i -E "s|^HOOKS=.*$|HOOKS=(${NEW_HOOKS})|" "$CONF"
-
-echo "Done."
-echo "New HOOKS set to:"
-echo "  $NEW_HOOKS"
-
-echo "Rebuilding initramfs..."
-mkinitcpio -P
-
-sudo cp -r ./assets/arch-mac-style /usr/share/plymouth/themes/
-sudo plymouth-set-default-theme -R arch-mac-style
+echo "Regenerating initramfs"
+sudo limine-update

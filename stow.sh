@@ -30,8 +30,8 @@ sudo stow -t /usr/local/bin bin
 echo "Stowing config to $HOME..."
 for dir in config/*; do
     if [ -d "$dir" ]; then
-        dir=$(basename "$dir")
-        dir=${dir%/}
+        dir=$(basename "$dir") # Remove config prefix
+        dir=${dir%/} # Remove trailing slash if any
         stow -t "$HOME" -d "$DOTFILES_DIR/config" "$dir"
     fi
 done

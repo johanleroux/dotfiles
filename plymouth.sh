@@ -25,6 +25,11 @@ if [[ -n "$EFI" ]]; then
         limine_config="/boot/limine/limine.conf"
 fi
 
+# Remove the original config file if it's not /boot/limine.conf
+if [[ "$limine_config" != "/boot/limine.conf" ]] && [[ -f "$limine_config" ]]; then
+    sudo rm "$limine_config"
+fi
+
 # Double-check and exit if we don't have a config file for some reason
 if [[ ! -f $limine_config ]]; then
     echo "Error: Limine config not found at $limine_config" >&2

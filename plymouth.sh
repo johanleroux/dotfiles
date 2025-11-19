@@ -29,3 +29,6 @@ echo "  $NEW_HOOKS"
 
 echo "Rebuilding initramfs..."
 mkinitcpio -P
+
+sudo cp -r ./assets/arch-mac-style /usr/share/plymouth/themes/
+sudo plymouth-set-default-theme -R arch-mac-style

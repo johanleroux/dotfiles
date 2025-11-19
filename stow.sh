@@ -26,6 +26,9 @@ for dir in */; do
     if [ "$dir" == "scripts" ]; then
         echo "Stowing $dir to /usr/local/bin..."
         sudo stow -t /usr/local/bin "$dir"
+    elif [ "$dir" == "assets" ]; then
+        echo "Skipping $dir..."
+        continue
     else
         echo "Stowing $dir to \$HOME..."
         stow "$dir"

@@ -43,6 +43,7 @@ libreoffice-still
 lightdm
 lightdm-gtk-greeter
 limine
+limine-mkinitcpio
 limine-mkinitcpio-hook
 limine-snapper-sync
 localsend

@@ -10,6 +10,7 @@ sudo sed -i -E "s|^HOOKS=.*$|HOOKS=(${NEW_HOOKS})|" "$CONF"
 [[ -f /boot/EFI/limine/limine.conf ]] || [[ -f /boot/EFI/BOOT/limine.conf ]] && EFI=true
 
 # Conf location is different between EFI and BIOS
+EFI=""
 if [[ -n "$EFI" ]]; then
     # Check USB location first, then regular EFI location
     if [[ -f /boot/EFI/BOOT/limine.conf ]]; then
@@ -18,7 +19,7 @@ if [[ -n "$EFI" ]]; then
         limine_config="/boot/EFI/limine/limine.conf"
     fi
 else
-    limine_config="/boot/limine/limine.conf"
+    limine_config="/boot/limine.conf"
 fi
 
 # Double-check and exit if we don't have a config file for some reason
@@ -30,7 +31,7 @@ fi
   CMDLINE=$(grep "^[[:space:]]*cmdline:" "$limine_config" | head -1 | sed 's/^[[:space:]]*cmdline:[[:space:]]*//')
 
   sudo tee /etc/default/limine <<EOF >/dev/null
-TARGET_OS_NAME="Custom Arch Linux"
+TARGET_OS_NAME="Arch Linux"
 
 ESP_PATH="/boot"
 

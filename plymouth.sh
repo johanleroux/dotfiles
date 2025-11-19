@@ -8,7 +8,7 @@ echo "Updating HOOKS in $CONF"
 sudo sed -i -E "s|^HOOKS=.*$|HOOKS=(${NEW_HOOKS})|" "$CONF"
 
 # Check if the theme is not already set
-current_theme=$(plymouth-set-default-theme --list | grep '^\*' | awk '{print $2}')
+current_theme=$(plymouth-set-default-theme)
 if [[ "$current_theme" != "arch-mac-style" ]]; then
     echo "Selecting Plymouth theme"
     sudo cp -r ./assets/arch-mac-style /usr/share/plymouth/themes/

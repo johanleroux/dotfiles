@@ -30,6 +30,7 @@ sudo stow -t /usr/local/bin bin
 echo "Stowing config to $HOME..."
 for dir in config/*; do
     if [ -d "$dir" ]; then
+        dir=${dir%/}
         stow -t "$HOME" "$dir"
     fi
 done

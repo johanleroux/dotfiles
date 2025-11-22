@@ -94,3 +94,5 @@ xorg-xinput
 yazi
 zoxide
 zsh
+ufw
+ufw-docker

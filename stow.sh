@@ -36,4 +36,7 @@ for dir in config/*; do
     fi
 done
 
+# Update desktop database after stowing mimetypes
+update-desktop-database ~/.local/share/applications
+
 echo "All stow operations completed!"

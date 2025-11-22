@@ -22,11 +22,6 @@ exec --no-startup-id discord --start-minimized
 exec --no-startup-id slack --startup
 exec_always --no-startup-id feh --bg-scale --randomize ~/.wallpaper/*
 
-# set system default to dark mode
-exec --no-startup-id gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
-exec --no-startup-id gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-exec --no-startup-id gsettings set org.gnome.desktop.interface icon-theme "Yaru-blue"
-
 # pause dunst notifications
 exec_always dunstctl set-paused true
 

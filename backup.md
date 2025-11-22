@@ -11,6 +11,7 @@
 ## Development & Configuration
 - [ ] SSH keys (`~/.ssh/`)
 - [ ] GPG keys
+- [ ] AWS keys
 - [ ] Git configuration (`~/.gitconfig`)
 - [ ] IDE settings and plugins
 - [ ] Custom scripts and aliases

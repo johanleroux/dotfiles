@@ -24,6 +24,7 @@ fi
 
 # Stow the applications to $HOME/.local/share/applications
 echo "Stowing applications to $HOME/.local/share/applications..."
+mkdir -p "$HOME/.local/share/applications"
 stow -t "$HOME/.local/share/applications" applications
 
 # Stow the bin directory to /usr/local/bin

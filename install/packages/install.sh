@@ -14,7 +14,6 @@ then
     rm yay -rf
 fi
 
-echo "Installing packages"
 yay -S --needed --noconfirm - < $INSTALL_PATH/packages/pkg.list
 echo "Packages installed"
 

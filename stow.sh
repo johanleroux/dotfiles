@@ -22,6 +22,10 @@ if [ "$(pwd)" != "$DOTFILES_DIR" ]; then
     exit 1
 fi
 
+# Stow the applications to $HOME/.local/share/applications
+echo "Stowing applications to $HOME/.local/share/applications..."
+stow -t "$HOME/.local/share/applications" applications
+
 # Stow the bin directory to /usr/local/bin
 echo "Stowing bin to /usr/local/bin..."
 sudo stow -t /usr/local/bin bin

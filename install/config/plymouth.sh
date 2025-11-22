@@ -5,6 +5,7 @@ CONF="/etc/mkinitcpio.conf"
 
 echo "Updating HOOKS in $CONF"
 sudo sed -i -E "s|^HOOKS=.*$|HOOKS=(${NEW_HOOKS})|" "$CONF"
+sudo limine-update
 
 # Check if the theme is not already set
 current_theme=$(plymouth-set-default-theme)

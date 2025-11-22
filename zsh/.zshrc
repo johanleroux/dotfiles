@@ -71,6 +71,7 @@ alias nah='git reset HEAD --hard; git clean -df;'
 alias t='reset; npm run test $@'
 alias tq='reset; npm run test:quick $@'
 alias kp='killport $@' 
+alias aws='docker run --rm -ti -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli'
 
 # System variables
 export EDITOR=nvim
@@ -106,3 +107,20 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
 
 eval "$(atuin init zsh --disable-up-arrow)"
+export PATH="/home/johan/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/home/johan/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+export PATH="$HOME/.atuin/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/home/johan/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/johan/.dart-cli-completion/zsh-config.zsh ]] && . /home/johan/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+

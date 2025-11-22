@@ -1,4 +1,6 @@
 1password
+adwaita-qt5-git
+adwaita-qt6-git
 arandr
 autorandr
 autotiling
@@ -26,9 +28,9 @@ git
 git-quick-stats
 gitui
 gnome-keyring
+gnome-themes-extra
 google-chrome
 gping
-hoppscotch-bin
 htop
 i3
 jetbrains-toolbox
@@ -37,6 +39,7 @@ libreoffice-still
 maim
 man-db
 neovim
+net-tools
 nvm
 oh-my-posh
 pavucontrol
@@ -53,6 +56,7 @@ stow
 syncthing
 tailscale
 terraform
+tldr
 tmux
 ttf-iosevka
 ttf-iosevka-nerd

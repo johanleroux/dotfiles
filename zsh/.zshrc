@@ -71,6 +71,8 @@ alias nah='git reset HEAD --hard; git clean -df;'
 alias t='reset; npm run test $@'
 alias tq='reset; npm run test:quick $@'
 alias kp='killport $@' 
+alias cat='bat $@'
+alias aws-cli='docker run --rm -ti -v ~/.aws:/root/.aws amazon/aws-cli $@'
 alias aws='docker run --rm -ti -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli'
 
 # System variables

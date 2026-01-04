@@ -11,10 +11,10 @@ xdg-mime default imv.desktop image/tiff
 # Open PDFs with the Document Viewer
 xdg-mime default org.gnome.Evince.desktop application/pdf
 
-# Use Chromium as the default browser
-xdg-settings set default-web-browser chromium.desktop
-xdg-mime default chromium.desktop x-scheme-handler/http
-xdg-mime default chromium.desktop x-scheme-handler/https
+# Use Google Chrome as the default browser
+xdg-settings set default-web-browser google-chrome-stable.desktop
+xdg-mime default google-chrome-stable.desktop x-scheme-handler/http
+xdg-mime default google-chrome-stable.desktop x-scheme-handler/https
 
 # Open video files with mpv
 xdg-mime default mpv.desktop video/mp4
@@ -32,9 +32,6 @@ xdg-mime default mpv.desktop video/x-ms-asf
 xdg-mime default mpv.desktop video/x-ogm+ogg
 xdg-mime default mpv.desktop video/x-theora+ogg
 xdg-mime default mpv.desktop application/ogg
-
-# Use Hey for mailto: links
-xdg-mime default HEY.desktop x-scheme-handler/mailto
 
 # Open text files with nvim
 xdg-mime default nvim.desktop text/plain

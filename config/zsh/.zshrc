@@ -1,3 +1,5 @@
+# zmodload zsh/zprof
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -24,8 +26,13 @@ zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::tmux
 
-# Load completions
-autoload -Uz compinit && compinit
+# Smarter completion initialization
+autoload -Uz compinit 
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  compinit;
+else
+  compinit -C;
+fi;
 
 zinit cdreplay -q
 
@@ -117,5 +124,17 @@ complete -o nospace -C /usr/bin/terraform terraform
 eval "$(atuin init zsh --disable-up-arrow)"
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Create a function that unsets itself and loads nvm
+nvm() {
+  unset -f nvm node npm
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+  # Re-run the command originally passed to the function
+  nvm "$@"
+}
+# Create similar wrappers for node and npm
+node() { nvm exec node "$@"; }
+npm() { nvm exec npm "$@"; }
+
+# zprof

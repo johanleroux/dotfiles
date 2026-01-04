@@ -14,7 +14,8 @@ then
     rm yay -rf
 fi
 
-yay -S --needed --noconfirm - < $INSTALL_PATH/packages/base.list 
-yay -S --needed --noconfirm - < $INSTALL_PATH/packages/pkg.list
+cat $INSTALL_PATH/packages/*.list > /tmp/pkg.list
+
+yay -S --needed --noconfirm - < /tmp/pkg.list
 echo "Packages installed"
 

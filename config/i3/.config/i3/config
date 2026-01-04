@@ -36,8 +36,8 @@ exec_always --no-startup-id /home/$USER/.config/display/set-config.sh
 exec_always autotiling -w 1 2 3 4 5 6 7 8 9
 
 #bindsym Print exec maim "/home/$USER/Pictures/$(date).jpg"
-bindsym $mod+Shift+s exec screenshot_window
-bindsym $mod+s exec screenshot_selection
+bindsym $mod+Shift+s exec screenshot-window
+bindsym $mod+s exec screenshot-selection
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.

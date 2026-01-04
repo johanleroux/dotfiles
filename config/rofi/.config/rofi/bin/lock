@@ -6,7 +6,6 @@ file=$(sed -n "s/.*'\(.*\)'.*/\1/p" ~/.fehbg)
 # Define new lock path
 newfile="/tmp/i3lock.png"
 
-
 # Check if the lock screen already exists, otherwise generate it
 if [ ! -f "$newfile" ]; then
     # Get the width of the resolution of the primary display

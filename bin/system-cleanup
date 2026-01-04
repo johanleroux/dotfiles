@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+
+# Exit immediately if a command exits with a non-zero status
+set -eEo pipefail
+
+# Define path locations
+export INSTALL_PATH="$HOME/dotfiles/install"
+
+# List of ignored packages
+ignored_packages=(
+  "yay"
+  "yay-debug"
+)
+
+# Get a list of used packages
+used_packages=$(cat $INSTALL_PATH/packages/base.list $INSTALL_PATH/packages/pkg.list)
+echo "$(echo "$used_packages" | wc -l) packages installed."
+
+search_unused_packages() {
+  # Keep track of searched packages to avoid infinite loops
+  searched_packages=()
+
+  # Keep track of new dependencies found in each iteration
+  found_new_dependencies=true
+  total_dependencies=0
+  iteration=1
+
+  # Iteratively find dependencies until no new ones are found
+  while $found_new_dependencies; do
+    found_new_dependencies=false
+
+    echo -e "\e[34mFinding dependencies of used packages (Iteration $iteration)\e[0m"
+    for pkg in $used_packages; do
+      # Skip if package has already been searched
+      if [[ " ${searched_packages[*]} " == *" $pkg "* ]]; then
+        continue
+      fi
+
+      used_dependencies=$(pactree -d1 "$pkg" | tail -n +2 | sed 's/^[├└]─//' | cut -d' ' -f1 | cut -d'>' -f1 | cut -d'=' -f1)
+      used_packages+=$'\n'"$used_dependencies"
+      used_packages=$(echo "$used_packages" | sort -u)
+
+      searched_packages+=("$yay")
+    done
+
+    local_dependencies=$(echo "$used_packages" | wc -l)
+
+    # Check if new dependencies were found
+    if (( local_dependencies > total_dependencies )); then
+      found_new_dependencies=true
+      total_dependencies=$local_dependencies
+    fi
+
+    iteration=$((iteration + 1))
+  done
+}
+
+# Search for dependencies of used packages
+search_unused_packages
+
+# Get a list of all installed packages
+all_packages=$(pacman -Qq)
+
+# Find unused packages by comparing the two lists
+unused_packages=()
+for pkg in $all_packages; do
+  if ! grep -q "^$pkg$" <<< "$used_packages"; then
+    unused_packages+=("$pkg")
+  fi
+done
+
+# Remove ignored packages from the unused packages list
+for ignored_pkg in "${ignored_packages[@]}"; do
+  unused_packages=($(printf '%s\n' "${unused_packages[@]}" | grep -v "^$ignored_pkg$"))
+done
+
+echo "$(echo "$used_packages" | wc -l) total used packages including dependencies found."
+echo "$(echo "$all_packages" | wc -l) total installed packages found."
+echo "$(echo ${#unused_packages[@]}) unused packages found."
+echo "$(echo ${#ignored_packages[@]}) ignored packages."
+
+# Check if there are unused packages
+if [ ${#unused_packages[@]} -eq 0 ]; then
+  echo "No unused packages found. System is clean!"
+  exit 0
+fi
+
+echo "The following packages are installed but not listed in pkg.list:"
+printf '%s\n' "${unused_packages[@]}"
+packages_to_delete=$(gum filter --no-limit --placeholder "Type to filter unused packages..." <<< "$(printf '%s\n' "${unused_packages[@]}")")
+
+echo -e "\e[32m\nRemoving selected unused packages\e[0m"
+if [ -n "$packages_to_delete" ]; then
+  echo "The following packages will be removed:"
+  printf '%s\n' "$packages_to_delete"
+  sudo pacman -Rns --noconfirm $packages_to_delete
+else
+  echo "No packages selected for removal."
+fi

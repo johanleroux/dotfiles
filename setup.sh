@@ -74,6 +74,8 @@ fi
 if ! [ -d "$HOME/.nvm" ]; then
   echo "Installing nvm"
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+  nvm install --lts
+  nvm use --lts
 fi
 
 # bat
@@ -104,6 +106,18 @@ sudo sed -i 's/^NUMBER_LIMIT_IMPORTANT="10"/NUMBER_LIMIT_IMPORTANT="5"/' /etc/sn
 if ! sudo systemctl is-enabled --quiet limine-snapper-sync.service; then
   echo "Enabling limine-snapper-sync service"
   sudo systemctl enable limine-snapper-sync.service
+fi
+
+# Tailscale
+if ! sudo systemctl is-enabled --quiet tailscaled; then
+  echo "Enabling Tailscale service"
+  sudo systemctl enable --now tailscaled
+fi
+
+if ! sudo systemctl is-active --quiet tailscaled; then
+  echo "Starting Tailscale service"
+  sudo systemctl start tailscaled
+  sudo tailscale set --operator=$USER
 fi
 
 # Set the default shell

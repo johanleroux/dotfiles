@@ -2,6 +2,8 @@
  - Sync default config
 2. Code clean up
 3. Update Polybar
+4. Replace Chrome and VSCode with open source versions
+5. Program to compare currently installed apps vs pkg.list
 
 Post Setup
 - [ ] Review default config

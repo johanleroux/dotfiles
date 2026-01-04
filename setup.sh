@@ -13,7 +13,7 @@ else
 fi
 
 # Install all packages
-bash ./install-packages.sh
+bash ./install.sh
 
 # LightDM
 if ! systemctl is-enabled --quiet lightdm; then
@@ -82,6 +82,10 @@ bat cache --build
 # Stow dotfiles and scripts
 bash ./stow.sh
 
+# Copy .wallpaper directory to $HOME
+echo "Copy .wallpaper directory to $HOME"
+cp -r wallpaper/.wallpaper $HOME/.wallpaper
+
 # Snapper setup
 if ! sudo snapper list-configs 2>/dev/null | grep -q "root"; then
   sudo snapper -c root create-config /
@@ -97,7 +101,7 @@ sudo sed -i 's/^NUMBER_LIMIT="50"/NUMBER_LIMIT="5"/' /etc/snapper/configs/{root,
 sudo sed -i 's/^NUMBER_LIMIT_IMPORTANT="10"/NUMBER_LIMIT_IMPORTANT="5"/' /etc/snapper/configs/{root,home}
 
 # Limine Snapper Sync
-if ! systemctl is-enabled --quiet limine-snapper-sync.service; then
+if ! sudo systemctl is-enabled --quiet limine-snapper-sync.service; then
   echo "Enabling limine-snapper-sync service"
   sudo systemctl enable limine-snapper-sync.service
 fi

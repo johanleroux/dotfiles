@@ -51,7 +51,7 @@ case $chosen in
         fi
         ;;
     $lock)
-        sh $HOME/.config/rofi/bin/lock
+        system-lock
         ;;
     $suspend)
 		ans=$(rdialog &)

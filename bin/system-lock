@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# Check if this is a dry run (ie --dry-run)
+DRY_RUN=false
+for arg in "$@"; do
+    if [ "$arg" == "--dry-run" ]; then
+        DRY_RUN=true
+        break
+    fi
+done
+
 # Get current wallpaper
 file=$(sed -n "s/.*'\(.*\)'.*/\1/p" ~/.fehbg)
 
@@ -17,4 +26,6 @@ if [ ! -f "$newfile" ]; then
 fi
 
 # Lock the screen
-i3lock -e -i "$newfile"
+if [ "$DRY_RUN" = false ]; then
+    i3lock -e -i "$newfile"
+fi

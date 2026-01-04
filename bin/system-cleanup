@@ -13,7 +13,7 @@ ignored_packages=(
 )
 
 # Get a list of used packages
-used_packages=$(cat $INSTALL_PATH/packages/base.list $INSTALL_PATH/packages/pkg.list)
+used_packages=$(cat $INSTALL_PATH/packages/*.list)
 echo "$(echo "$used_packages" | wc -l) packages installed."
 
 search_unused_packages() {

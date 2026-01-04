@@ -20,6 +20,7 @@ exec --no-startup-id autorandr --change
 exec --no-startup-id syncthing --no-browser
 exec --no-startup-id discord --start-minimized
 exec --no-startup-id slack --startup
+exec --no-startup-id system-lock --dry-run
 exec_always --no-startup-id feh --bg-scale --randomize ~/.wallpaper/*
 
 # pause dunst notifications
@@ -77,7 +78,7 @@ bindsym $mod+x exec kitty
 bindsym $mod+q kill
 
 # launch i3lock
-bindsym Ctrl+$mod+l exec --no-startup-id sh $HOME/.config/rofi/bin/lock
+bindsym Ctrl+$mod+l exec --no-startup-id system-lock
 
 # start rofi (a program launcher)
 bindsym $mod+space exec --no-startup-id sh $HOME/.config/rofi/bin/launcher

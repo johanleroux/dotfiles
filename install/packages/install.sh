@@ -16,6 +16,6 @@ fi
 
 cat $INSTALL_PATH/packages/*.list > /tmp/pkg.list
 
-yay -S --needed --noconfirm - < /tmp/pkg.list
+yay -S --needed --noconfirm --sudoloop - < /tmp/pkg.list
 echo "Packages installed"
 

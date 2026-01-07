@@ -1,2 +1,5 @@
 *.log
 lazy-lock.json
+
+config/vscode/.vscode/extensions
+!config/vscode/.vscode/extensions/extensions.json

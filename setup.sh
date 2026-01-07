@@ -22,7 +22,7 @@ if ! systemctl is-enabled --quiet lightdm; then
 fi
 
 # Check if autologin group does not exist
-if ! getent group autologin > /dev/null 2>&1; then
+if ! getent group autologin >/dev/null 2>&1; then
   echo "Creating 'autologin' group."
   sudo groupadd -r autologin
 fi
@@ -58,6 +58,16 @@ fi
 if ! id -nG "$(whoami)" | grep -qw "docker"; then
   echo "Adding $(whoami) to the Docker group"
   sudo usermod -aG docker $USER
+fi
+
+# Valkey
+if ! systemctl is-enabled --quiet valkey; then
+  echo "Enabling valkey service"
+  sudo systemctl enable valkey
+fi
+if ! systemctl is-active --quiet valkey; then
+  echo "Starting Valkey service"
+  sudo systemctl start valkey
 fi
 
 # Syncthing

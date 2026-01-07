@@ -25,7 +25,12 @@ if [ ! -f "$newfile" ]; then
     magick "$file" -resize "$width"x"$height"^ -blur 0x5 "$newfile"
 fi
 
+# Ensure 1password is locked
+if pgrep -x "1password" >/dev/null; then
+  1password --lock &
+fi
+
 # Lock the screen
 if [ "$DRY_RUN" = false ]; then
-    i3lock -e -i "$newfile"
+    i3lock -t -e -i "$newfile"
 fi

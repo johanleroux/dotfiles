@@ -13,3 +13,5 @@ if [[ -n $orphans ]]; then
   done
   echo
 fi
+
+sudo pacman -Scc --noconfirm

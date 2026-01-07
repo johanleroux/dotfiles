@@ -11,6 +11,7 @@ bash $INSTALL_PATH/config/gpg.sh
 bash $INSTALL_PATH/config/limine-snapper.sh
 bash $INSTALL_PATH/config/mimetypes.sh
 bash $INSTALL_PATH/config/network.sh
+bash $INSTALL_PATH/config/nvidia.sh
 bash $INSTALL_PATH/config/plymouth.sh
 bash $INSTALL_PATH/config/printer.sh
 bash $INSTALL_PATH/config/usb-autosuspend.sh

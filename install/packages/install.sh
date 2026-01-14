@@ -14,8 +14,14 @@ then
     rm yay -rf
 fi
 
+# Enable multilib repository
+if ! grep -Eq '^\s*\[multilib\]' /etc/pacman.conf; then
+    echo "Enabling multilib repository"
+    sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+    sudo pacman -Sy
+fi
+
 cat $INSTALL_PATH/packages/*.list > /tmp/pkg.list
 
 yay -S --needed --noconfirm --sudoloop - < /tmp/pkg.list
 echo "Packages installed"
-

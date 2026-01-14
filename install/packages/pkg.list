@@ -21,6 +21,8 @@ eza
 fd
 feh
 filezilla
+gvfs-smb
+smbclient
 firefox
 fzf
 git

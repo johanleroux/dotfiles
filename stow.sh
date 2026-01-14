@@ -16,20 +16,32 @@ if [ ! -d "$DOTFILES_DIR" ]; then
     exit 1
 fi
 
-# Navigate to dotfiles directory
-cd "$DOTFILES_DIR" || exit 1
+# Check if the current directory is the dotfiles directory
+if [ "$(pwd)" != "$DOTFILES_DIR" ]; then
+    echo "Please run this script from the dotfiles directory: $DOTFILES_DIR"
+    exit 1
+fi
 
-# Loop through all subdirectories
-for dir in */; do
-    dir=${dir%/}  # remove trailing slash
+# Stow the applications to $HOME/.local/share/applications
+echo "Stowing applications to $HOME/.local/share/applications..."
+mkdir -p "$HOME/.local/share/applications"
+stow -t "$HOME/.local/share/applications" applications
 
-    if [ "$dir" == "scripts" ]; then
-        echo "Stowing $dir to /usr/local/bin..."
-        sudo stow -t /usr/local/bin "$dir"
-    else
-        echo "Stowing $dir to \$HOME..."
-        stow "$dir"
+# Stow the bin directory to /usr/local/bin
+echo "Stowing bin to /usr/local/bin..."
+sudo stow -t /usr/local/bin bin
+
+# Stow the directories inside config to $HOME
+echo "Stowing config to $HOME..."
+for dir in config/*; do
+    if [ -d "$dir" ]; then
+        dir=$(basename "$dir") # Remove config prefix
+        dir=${dir%/} # Remove trailing slash if any
+        stow -t "$HOME" -d "$DOTFILES_DIR/config" "$dir"
     fi
 done
 
-echo "✅ All stow operations completed!"
+# Update desktop database after stowing mimetypes
+update-desktop-database ~/.local/share/applications
+
+echo "All stow operations completed!"

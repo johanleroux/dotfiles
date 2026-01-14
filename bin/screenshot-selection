@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+path="/home/$USER/screenshots"
+filename="$path/$(date).png" 
+
+mkdir -p "$path"
+maim -us "$filename" && xclip -selection clipboard -t image/png "$filename"

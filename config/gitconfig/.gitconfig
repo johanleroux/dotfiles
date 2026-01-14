@@ -1,0 +1,32 @@
+[init]
+    defaultBranch = master
+[user]
+    name = Johan le Roux
+	email = johan@munch.cloud
+[push]
+    autoSetupRemote = true
+    followTags = true
+[column]
+    ui = auto
+[branch]
+    sort = -committerdate
+[tag]
+    sort = version:refname
+[diff]
+    algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true
+[fetch]
+    prune = true
+    pruneTags = true
+    all = true
+[help]
+    autocorrect = prompt
+[rerere]
+    enabled = true
+    autoupdate = true
+[rebase]
+    autoStash = true
+    updateRefs = true
+    autoSquash = true

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# Check if this is a dry run (ie --dry-run)
+DRY_RUN=false
+for arg in "$@"; do
+    if [ "$arg" == "--dry-run" ]; then
+        DRY_RUN=true
+        break
+    fi
+done
+
+# Get current wallpaper
+file=$(sed -n "s/.*'\(.*\)'.*/\1/p" ~/.fehbg)
+
+# Define new lock path
+newfile="/tmp/i3lock.png"
+
+# Check if the lock screen already exists, otherwise generate it
+if [ ! -f "$newfile" ]; then
+    # Get the width of the resolution of the primary display
+    xrandr_query=xrandr
+    width=$($xrandr_query | awk '/ primary/{print $4}' | cut -d+ -f1 | cut -dx -f1)
+    height=$($xrandr_query | awk '/ primary/{print $4}' | cut -d+ -f1 | cut -dx -f2)
+
+    magick "$file" -resize "$width"x"$height"^ -blur 0x5 "$newfile"
+fi
+
+# Ensure 1password is locked
+if pgrep -x "1password" >/dev/null; then
+  1password --lock &
+fi
+
+# Lock the screen
+if [ "$DRY_RUN" = false ]; then
+    i3lock -t -e -i "$newfile"
+fi

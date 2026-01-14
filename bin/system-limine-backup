@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+CURRENT_CONFIG=/boot/limine.conf
+# CURRENT_VMLINUZ=/boot/vmlinuz-linux
+# CURRENT_INITRAMFS=/boot/initramfs-linux.img
+
+BACKUP_PATH=/boot/limine-backups
+
+HASH=$(md5sum "$CURRENT_CONFIG" | cut -f1 -d" ")
+
+echo "$CURRENT_CONFIG hash is $HASH"
+
+sudo mkdir -p "$BACKUP_PATH"
+
+if [ -f "$BACKUP_PATH/limine-$HASH.conf" ]; then
+    echo "Backup already exists hash $HASH"
+else
+    sudo cp "$CURRENT_CONFIG" "$BACKUP_PATH/limine-$HASH.conf"
+    # sudo cp "$CURRENT_VMLINUZ" "$BACKUP_PATH/vmlinuz-linux-$HASH.conf"
+    # sudo cp "$CURRENT_INITRAMFS" "$BACKUP_PATH/initramfs-linux-$HASH.img"
+
+    echo "Backup created: $BACKUP_PATH/limine-$HASH.conf"
+    # echo "Backup created: $BACKUP_PATH/vmlinuz-linux-$HASH.conf"
+    # echo "Backup created: $BACKUP_PATH/initramfs-linux-$HASH.img"
+fi

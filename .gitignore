@@ -3,3 +3,4 @@ lazy-lock.json
 
 config/vscode/.vscode/extensions
 !config/vscode/.vscode/extensions/extensions.json
+config/gtk-4.0/.config/gtk-4.0/servers

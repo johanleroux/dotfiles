@@ -13,11 +13,11 @@ xdg-mime default org.gnome.Evince.desktop application/pdf
 
 # Use Google Chrome as the default browser
 xdg-settings set default-web-browser com.google.Chrome.desktop
-xdg-mime default com.google.Chrome.desktop x-scheme-handler/http
-xdg-mime default com.google.Chrome.desktop x-scheme-handler/https
+xdg-mime default google-chrome.desktop x-scheme-handler/http
+xdg-mime default google-chrome.desktop x-scheme-handler/https
 
 # Use Google Chrome for mailto: links
-xdg-mime default com.google.Chrome.desktop x-scheme-handler/mailto
+xdg-mime default google-chrome.desktop x-scheme-handler/mailto
 
 # Open video files with mpv
 xdg-mime default mpv.desktop video/mp4

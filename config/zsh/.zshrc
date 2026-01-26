@@ -95,6 +95,7 @@ alias cat='bat $@'
 
 # System variables
 export EDITOR=nvim
+export TERMINAL=/usr/bin/kitty
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_ENABLE_HIGHDPI_SCALING=1
 export GDK_SCALE=0.5

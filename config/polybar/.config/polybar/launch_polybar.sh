@@ -2,4 +2,4 @@
 
 polybar-msg cmd quit
 
-polybar --reload toph &
+polybar --reload top &

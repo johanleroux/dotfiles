@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# /usr/local/bin/another-redis-desktop-manager-lz4 {HEX}
+echo "$1" | xxd -r -p | lz4 -dc

@@ -4,6 +4,9 @@
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 
+# Allow ports for local development
+sudo ufw allow 8080/tcp
+
 # Allow ports for LocalSend
 sudo ufw allow 53317/udp
 sudo ufw allow 53317/tcp

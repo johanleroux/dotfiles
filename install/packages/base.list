@@ -1,6 +1,8 @@
 amd-ucode
 base
 base-devel
+bluez
+bluez-utils
 cups
 cups-browsed
 cups-filters
@@ -14,6 +16,7 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
+wireplumber
 xorg-bdftopcf
 xorg-docs
 xorg-font-util

@@ -21,8 +21,6 @@ eza
 fd
 feh
 filezilla
-gvfs-smb
-smbclient
 firefox
 fzf
 git
@@ -34,6 +32,7 @@ gnome-themes-extra
 google-chrome
 gping
 gum
+gvfs-smb
 htop
 i3-wm
 i3lock
@@ -73,10 +72,10 @@ python
 qt5-quickcontrols2
 qt6-declarative
 qt6-svg
-valkey
 rofi
 rofi-bluetooth-git
 slack-desktop
+smbclient
 snapper
 stow
 syncthing
@@ -91,6 +90,8 @@ ttf-meslo-nerd
 ttf-noto-nerd
 ufw
 ufw-docker
+unzip
+valkey
 visual-studio-code-bin
 wget
 xclip

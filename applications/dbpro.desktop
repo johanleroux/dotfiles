@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=DB Pro
+Exec=.local/bin/DB_Pro.AppImage %U
+Terminal=false
+Type=Application
+Icon=.local/share/applications/icons/dbpro.png
+StartupWMClass=DB Pro
+X-AppImage-Version=1.5.0
+Comment=DB Pro App
+Categories=Development;
+MimeType=x-scheme-handler/dbpro

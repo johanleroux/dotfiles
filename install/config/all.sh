@@ -1,5 +1,6 @@
 
 #!/usr/bin/env bash
+bash $INSTALL_PATH/config/audio.sh
 bash $INSTALL_PATH/config/default-keyring.sh
 bash $INSTALL_PATH/config/directories.sh
 bash $INSTALL_PATH/config/dns-resolver.sh

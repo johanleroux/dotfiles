@@ -17,6 +17,7 @@ pipewire-alsa
 pipewire-jack
 pipewire-pulse
 wireplumber
+xdg-terminal-exec
 xorg-bdftopcf
 xorg-docs
 xorg-font-util

@@ -67,6 +67,8 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl --device amdgpu_bl1 set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl --device amdgpu_bl1 set 5%-
+bindsym XF86KbdBrightnessUp exec --no-startup-id asusctl leds next
+bindsym XF86KbdBrightnessDown exec --no-startup-id asusctl leds prev
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod

@@ -101,6 +101,7 @@ export QT_ENABLE_HIGHDPI_SCALING=1
 export GDK_SCALE=0.5
 export GDK_DPI_SCALE=0.5
 export GTK_THEME=Awaita:dark
+export GTK_CSD=0
 
 # start tmux session when connecting though ssh 
 ssh() {

@@ -142,3 +142,6 @@ node() { nvm exec node "$@"; }
 npm() { nvm exec npm "$@"; }
 
 # zprof
+
+# opencode
+export PATH=/home/johan/.opencode/bin:$PATH

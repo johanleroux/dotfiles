@@ -11,9 +11,10 @@ done
 
 # Get current wallpaper
 file=$(sed -n "s/.*'\(.*\)'.*/\1/p" ~/.fehbg)
+filename_without_extension="${$(basename "$file")%.*}"
 
 # Define new lock path
-newfile="/tmp/i3lock.png"
+newfile="/tmp/$filename_without_extension.png"
 
 # Check if the lock screen already exists, otherwise generate it
 if [ ! -f "$newfile" ]; then

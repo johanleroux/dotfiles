@@ -10,20 +10,28 @@ for arg in "$@"; do
 done
 
 # Get current wallpaper
-file=$(sed -n "s/.*'\(.*\)'.*/\1/p" ~/.fehbg)
-filename_without_extension="${$(basename "$file")%.*}"
+filepath=$(sed -n "s/.*'\(.*\)'.*/\1/p" ~/.fehbg)
+echo "File Path: $filepath"
+
+file=$(basename $filepath)
+echo "File: $file"
+
+filename="$(basename "$file" | sed 's/\(.*\)\..*/\1/')"
+echo "File Name: $filename"
 
 # Define new lock path
-newfile="/tmp/$filename_without_extension.png"
+lockfile="/tmp/$filename.png"
+echo "Lock File: $lockfile"
 
 # Check if the lock screen already exists, otherwise generate it
-if [ ! -f "$newfile" ]; then
+if [ ! -f "$lockfile" ]; then
     # Get the width of the resolution of the primary display
     xrandr_query=xrandr
     width=$($xrandr_query | awk '/ primary/{print $4}' | cut -d+ -f1 | cut -dx -f1)
     height=$($xrandr_query | awk '/ primary/{print $4}' | cut -d+ -f1 | cut -dx -f2)
 
-    magick "$file" -resize "$width"x"$height"^ -blur 0x5 "$newfile"
+    echo "Filepath: $filepath Width: $width Height: $height Lockfile: $lockfile"
+    magick "$filepath" -resize "$width"x"$height"^ -blur 0x5 "$lockfile"
 fi
 
 # Ensure 1password is locked
@@ -33,5 +41,5 @@ fi
 
 # Lock the screen
 if [ "$DRY_RUN" = false ]; then
-    i3lock -t -e -i "$newfile"
+    i3lock -t -e -i "$lockfile"
 fi
